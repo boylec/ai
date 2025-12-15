@@ -456,6 +456,14 @@ export class XaiResponsesLanguageModel implements LanguageModelV3 {
               return;
             }
 
+            // Custom tool call input streaming - already handled by output_item events
+            if (
+              event.type === 'response.custom_tool_call_input.delta' ||
+              event.type === 'response.custom_tool_call_input.done'
+            ) {
+              return;
+            }
+
             if (
               event.type === 'response.output_item.added' ||
               event.type === 'response.output_item.done'
